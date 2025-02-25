@@ -1,0 +1,231 @@
+# Kotlin Multiplatform
+
+```
+~~~graph-easy --as=boxart
+[ Kotlin ] - for -> [ Desktop ], [ Mobile ], [ Web ]
+~~~
+```
+
+---
+
+# How does it work?
+
+## Essentially, it's a fancy compiler
+
+```
+~~~graph-easy --as=boxart
+[ Kotlin ] - to -> [ IR ] - to -> [ Your backend ]
+~~~
+```
+
+---
+
+# How does it work?
+
+## It dynamically links stuff that is related to the target platform
+
+```
+~~~graph-easy --as=boxart
+[ Kotlin ] - is transformed to -> [ IR ]
+[ IR ] -> [ Kotlin for WASM ] -> [ Browser ]
+[ IR ] -> [ Kotlin for Java ] -> [ Desktop ]
+~~~
+```
+
+---
+
+# Kotlin/Common
+
+It's a subset of Kotlin that only allows to use:
+
+* The kotlin standard library
+* Kotlinx libraries
+* Other multiplatform libraries
+
+## Kotlin/Java
+
+* Allows using Java libraries
+* Deploys as a JAR file
+* Can be used for both the desktop and server
+
+### Kotlin/WASM
+
+* Allows using JavaScript libraries
+* Allows using the browser API
+* Bundles with **webpack** and exposes a JS friendly API.
+
+---
+
+# How do we dynamically link this stuff?
+
+Two words: **expect** and **actual**.
+
+## Common
+```kt
+expect fun randomId(): String
+```
+
+## Kotlin/Java
+
+```kt
+actual fun randomId() = UUID.randomUUID().toString()
+```
+
+## Kotlin/WASM
+```kt
+actual fun randomId() = "" + (+Date())
+```
+
+---
+
+# How do we dynamically link this stuff?
+
+```
+~~~graph-easy --as=boxart
+[ commonMain ]
+[ commonMain ] -> [ desktopMain ]
+[ commonMain ] -> [ wasmJsMain ]
+~~~
+```
+
+* commonMain contains the `expect`
+* desktopMain contains the `actual` _java_ version
+* wasmJsMain contains the `actual` _wasm_ version
+
+## You can use any platform library in the implementations!
+
+---
+
+# Kotlin Compose
+
+A toolkit to build cross-platform UI applications.
+
+## Android
+
+Based on Jetpack Compose
+
+## Swift
+
+Based on SwiftUI
+
+## Java
+
+OpenGL Based rendering with integration with Swing.
+
+## Browser
+
+WebGL based rendering.
+
+---
+
+# Kotlin Compose
+
+Declarative UI based on a @Composable DSL. Familiar for developers
+that work with React / Swift UI.
+
+```kt
+@Composable // a Component
+fun DatabaseSizeTag(size: Long) { // Arguments
+    val tagColor = if (size > 1024 * 1024 * 1024) {
+        Color.Red
+    } else if (size > 1024L * 1024 * 50) {
+        Color.Yellow
+    } else {
+        Color.Green
+    }
+
+    var normSize = size
+    var normUnit = "B"
+
+    if (normSize > 1024) {
+        normSize /= 1024
+        normUnit = "KB"
+    }
+
+    if (normSize > 1024) {
+        normSize /= 1024
+        normUnit = "MB"
+    }
+
+    if (normSize > 1024) {
+        normSize /= 1024
+        normUnit = "GB"
+    }
+
+    Text("${normSize}${normUnit}", modifier = Modifier // Virtual DOM
+        .background(tagColor)
+        .border(width = 1.dp, color = tagColor, shape = RoundedCornerShape(32.dp))
+        .padding(horizontal = 32.dp)
+    )
+}
+```
+
+---
+# Kotlin Compose
+
+Declarative UI based on a @Composable DSL. Familiar for developers
+that work with React / Swift UI.
+
+```kt
+@Composable
+fun App() {
+    val connectionState by connectionStatus().collectAsState() // reactive state
+    val showContent by derivedStateOf { connectionState == ConnectionState.Connected }
+
+    MaterialTheme { // how it's going to be rendered
+        Column(Modifier.fillMaxWidth()) {
+            DatabaseConnectionHandler() // custom components
+
+            AnimatedVisibility(showContent) { // animations
+                Column(Modifier.fillMaxWidth()) {
+                    DatabaseList()
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+# Demo
+
+---
+
+# Demo
+
+## Desktop
+
+```shell
+./gradlew :composeApp:run
+```
+
+---
+
+# Demo
+
+## Desktop
+
+```shell
+./gradlew :composeApp:run
+```
+
+## Web
+
+Start the proxy server:
+
+```shell
+cd composeApp/src/httpMongoDbProxy
+npm i
+node index.js
+```
+
+And then the application (it will open a browser):
+
+```shell
+./gradlew :composeApp:wasmJsBrowserRun
+```
+
+---
+
+# Q&A
