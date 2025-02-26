@@ -65,6 +65,9 @@ It's a subset of Kotlin that only allows to use:
 * Allows using JavaScript libraries
 * Allows using the browser API
 * Bundles with **webpack** and exposes a JS friendly API.
+* ⚠️ In Alpha.
+
+> For a more stable version, you should use Kotlin/JS.
 
 ---
 
@@ -124,7 +127,7 @@ Based on SwiftUI
 
 OpenGL Based rendering with integration with Swing.
 
-## Browser
+## Browser/WASM
 
 WebGL based rendering.
 
@@ -273,9 +276,47 @@ And then the application (it will open a browser):
 
 # Wait, did you just say WebGL?
 
-Compose WASM uses WebGL, you can use Kotlin/JS and React, it's an option.
+Compose WASM uses WebGL because it's faster than working with the DOM
+for applications with enough complexity.
 
-## Sadly, Kotlin/JS with React is not "Compose"
+```
+~~~python3
+import plotext as plt
+
+benchmarks = ["AnimatedVisibility", "LazyGrid", "VisualEffects"]
+jvm = [100, 100, 100]
+wasm = [150, 180, 155]
+js = [320, 398, 310]
+
+plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
+plt.title("Compose Multiplatform Relative Benchmark Times (lower is better)")
+plt.show()
+~~~
+```
+
+---
+
+# Wait, did you just say WebGL?
+
+Compose WASM uses WebGL because it's faster than working with the DOM
+for applications with enough complexity.
+
+```
+~~~python3
+import plotext as plt
+
+benchmarks = ["AnimatedVisibility", "LazyGrid", "VisualEffects"]
+jvm = [100, 100, 100]
+wasm = [150, 180, 155]
+js = [320, 398, 310]
+
+plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
+plt.title("Compose Multiplatform Relative Benchmark Times (lower is better)")
+plt.show()
+~~~
+```
+
+## You can Kotlin/JS with React but is not "Compose"
 
 So you can't reuse components across platforms.
 
