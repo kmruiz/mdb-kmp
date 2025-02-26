@@ -7,13 +7,13 @@
 ```
 
 ---
-# Kotlin?
+# Kotlin ~~Multiplatform~~
 
 Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
 > The folks that build IntelliJ.
 
 ---
-# Kotlin?
+# Kotlin ~~Multiplatform~~
 
 Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
 > The folks that build IntelliJ.
@@ -26,7 +26,7 @@ fun helloWorld() {
 }
 ```
 ---
-# Kotlin?
+# Kotlin ~~Multiplatform~~
 
 Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
 > The folks that build IntelliJ.
@@ -42,7 +42,7 @@ fun helloWorld() {
 * Official DSL for Gradle
 * Official languages for Spring (one of the most important Java frameworks)
 ---
-# Kotlin?
+# Kotlin ~~Multiplatform~~
 
 Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
 > The folks that build IntelliJ.
@@ -68,7 +68,7 @@ fun helloWorld() {
 > It can use the DOM directly, several JS libraries, even React and Redux.
 ---
 
-# How does Multiplatform work?
+# How does Kotlin Multiplatform work?
 
 ## Essentially, it's a compiler with multiple backends
 
@@ -88,7 +88,7 @@ fun helloWorld() {
 
 ---
 
-# How does it work?
+# How does Kotlin Multiplatform work?
 
 ## It links dependencies that are related to the target platform
 
