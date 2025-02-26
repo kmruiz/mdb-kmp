@@ -279,6 +279,7 @@ And then the application (it will open a browser):
 Compose WASM uses WebGL because it's faster than working with the DOM
 for applications with enough complexity.
 
+## Compose Multiplatform Relative Benchmark Times _(lower is better)_
 ```
 ~~~python3
 import plotext as plt
@@ -289,10 +290,10 @@ wasm = [150, 180, 155]
 js = [320, 398, 310]
 
 plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
-plt.title("Compose Multiplatform Relative Benchmark Times (lower is better)")
 plt.show()
 ~~~
 ```
+[Reference: Kotlin/Wasm performance](https://kotlinlang.org/docs/wasm-overview.html#kotlin-wasm-performance)
 
 ---
 
@@ -301,6 +302,7 @@ plt.show()
 Compose WASM uses WebGL because it's faster than working with the DOM
 for applications with enough complexity.
 
+## Compose Multiplatform Relative Benchmark Times _(lower is better)_
 ```
 ~~~python3
 import plotext as plt
@@ -311,20 +313,19 @@ wasm = [150, 180, 155]
 js = [320, 398, 310]
 
 plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
-plt.title("Compose Multiplatform Relative Benchmark Times (lower is better)")
 plt.show()
 ~~~
 ```
+[Reference: Kotlin/Wasm performance](https://kotlinlang.org/docs/wasm-overview.html#kotlin-wasm-performance)
 
-## You can Kotlin/JS with React but is not "Compose"
+## You can use Kotlin/JS with React but is not "Compose"
 
-So you can't reuse components across platforms.
+* So you can't reuse components across platforms.
+* But the final package is smaller
 
-> Ideally, you want to have a Compose module to DOM, but it's not there.
+### The DOM model is fairly similar to Compose though
 
-### The DOM model is compatible with Compose though
-
-So maybe someone at some point builds a Compose/DOM version that doesn't depend on WebGL.
+* So maybe someone at some point builds a Compose/DOM version that doesn't depend on WebGL.
 
 ---
 
