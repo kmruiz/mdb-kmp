@@ -61,8 +61,7 @@ fun helloWorld() {
 ### It started strongly tied to Android Development
 
 * Now it's used for server applications (Ktor/Vert.x)
-> ↗️  Vert.x is the only JVM-based framework the top 7 most performant framework.
-> According to TechEmpower. 
+> ↗️ Vert.x is the top 7 most performant framework according to TechEmpower. 
 * It's used for desktop applications (Compose/Desktop)
 > It's GPU rendered by default, like a web browser or a video game. 
 * And also for web applications (via Kotlin/JS)
@@ -86,8 +85,6 @@ fun helloWorld() {
 * clang
 * gcc
 * rustc
-
-### They contain their own IR where the apply optimisations and transform your code
 
 ---
 
