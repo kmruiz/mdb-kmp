@@ -61,7 +61,18 @@ fun helloWorld() {
 ### It started strongly tied to Android Development
 
 * Now it's used for server applications (Ktor/Vert.x)
-> ↗️ Vert.x is the top 7 most performant framework according to TechEmpower. 
+> ↗️ Vert.x is the top 7 most performant framework according to TechEmpower.
+```
+~~~python3
+import plotext as plt
+
+fws = ["1. ntex (Rust)", "2. may-minihttp (Rust)", "3. xitca-web (Rust)", "4. Just (C+JS)", "5. redkale (JVM)", "6. libh2 (C)", "7. Vertx", "52. Ktor (Kotlin)", "88. Spring (JVM)", "130. Express (JS)"]
+percentages = [100, 99.7, 98.3, 90.6, 87.8, 85, 84.7, 34.7, 18.6, 6.9]
+
+plt.simple_bar(fws, percentages, width = 100)
+plt.show()
+~~~
+```
 * It's used for desktop applications (Compose/Desktop)
 > It's GPU rendered by default, like a web browser or a video game. 
 * And also for web applications (via Kotlin/JS)
