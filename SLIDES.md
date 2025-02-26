@@ -10,7 +10,7 @@
 
 # How does it work?
 
-## Essentially, it's a fancy compiler
+## Essentially, it's a compiler with multiple backends
 
 ```
 ~~~graph-easy --as=boxart
@@ -18,19 +18,31 @@
 ~~~
 ```
 
+## This IR approach is common in any compiler that targets multiple platforms
+
+* clang
+* gcc
+* rustc
+
+### Contain their own IR where the apply optimisations and transform your code
+
 ---
 
 # How does it work?
 
-## It dynamically links stuff that is related to the target platform
+## It links dependencies that are related to the target platform
 
 ```
 ~~~graph-easy --as=boxart
 [ Kotlin ] - is transformed to -> [ IR ]
 [ IR ] -> [ Kotlin for WASM ] -> [ Browser ]
 [ IR ] -> [ Kotlin for Java ] -> [ Desktop ]
+[ IR ] -> [ Kotlin Native ] -> [ Windows / Linux / OSX ]
 ~~~
 ```
+
+## It does this job during compile-time
+But you can also depend on runtime libraries.
 
 ---
 
@@ -115,6 +127,10 @@ OpenGL Based rendering with integration with Swing.
 ## Browser
 
 WebGL based rendering.
+
+## Native
+
+Nothing official, but there are libraries for TUIs like mosaic.
 
 ---
 
@@ -239,7 +255,7 @@ And then the application (it will open a browser):
 ./gradlew composeApp:createReleaseDistributable
 ```
 
-> ℹ️ This app is 123MB.
+> 📦 123MB.
 
 ## WASM
 
@@ -251,7 +267,7 @@ And then the application (it will open a browser):
 ./gradlew composeApp:wasmJsBrowserProductionWebpack
 ```
 
-> ℹ️ This app is 12MB.
+> 📦 12MB w/o compression, 3.5MB gzipped.
 
 ---
 
@@ -259,14 +275,15 @@ And then the application (it will open a browser):
 
 Compose WASM uses WebGL, you can use Kotlin/JS and React, it's an option.
 
-## Sadly, Kotlin/JS is not "Compose"
+## Sadly, Kotlin/JS with React is not "Compose"
 
-So you can't reuse components in Kotlin/JS.
+So you can't reuse components across platforms.
+
+> Ideally, you want to have a Compose module to DOM, but it's not there.
 
 ### The DOM model is compatible with Compose though
 
-So maybe someone at some point builds a Compose/DOM version
-that doesn't depend on WebGL.
+So maybe someone at some point builds a Compose/DOM version that doesn't depend on WebGL.
 
 ---
 
