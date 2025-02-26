@@ -327,6 +327,29 @@ fun App() {
 ```
 
 ---
+# Application Architecture
+
+```
+~~~graph-easy --as=boxart
+[ commonMain ] - used by -> [ desktopMain ]
+[ commonMain ] - used by -> [ wasmJsMain ]
+[ desktopMain ] - connects to -> [ MongoDB ]
+[ wasmJsMain ] - HTTP Requests -> [ Http Proxy ] - connects to -> [ MongoDB ]
+~~~
+```
+
+* **commonMain**
+  - `cat.kmruiz.components`: UI Components implemented in Compose
+  - `cat.kmruiz.mongodb`: MongoDB Driver interface
+  - `cat.kmruiz.App`: Actual application UI layout
+* **desktopMain**
+  - `cat.kmruiz.mongodb`: Actual MongoDB Driver implementation for Java
+  - `cat.kmruiz.main`: Bootstrap function for the Java application
+* **wasmJsMain**
+    - `cat.kmruiz.mongodb`: Actual MongoDB Driver implementation for WASM, leveraging a HTTP Proxy Server
+    - `cat.kmruiz.main`: Bootstrap function for the WASM application
+  
+---
 
 # Demo
 
