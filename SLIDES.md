@@ -7,8 +7,69 @@
 ```
 
 ---
+# Kotlin?
 
-# How does it work?
+Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
+> The folks that build IntelliJ.
+
+---
+# Kotlin?
+
+Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
+> The folks that build IntelliJ.
+
+## It uses a lightweight syntax, familiar to Swift or JavaScript developers.
+
+```kt
+fun helloWorld() {
+    println("Hello World!")
+}
+```
+---
+# Kotlin?
+
+Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
+> The folks that build IntelliJ.
+
+## It uses a lightweight syntax, familiar to Swift or JavaScript developers.
+
+```kt
+fun helloWorld() {
+    println("Hello World!")
+}
+```
+* Official language by Google for Android developers.
+* Official DSL for Gradle
+* Official languages for Spring (one of the most important Java frameworks)
+---
+# Kotlin?
+
+Kotlin is an open-source, modern multi-paradigm programming language developed by JetBrains
+> The folks that build IntelliJ.
+
+## It uses a lightweight syntax, familiar to Swift or JavaScript developers.
+
+```kt
+fun helloWorld() {
+    println("Hello World!")
+}
+```
+* Official language by Google for Android developers.
+* Official DSL for Gradle
+* Official languages for Spring (one of the most important Java frameworks)
+
+### It started strongly tied to Android Development
+
+* Now it's used for server applications (Ktor/Vert.x)
+> ↗️  Vert.x is the only JVM-based framework the top 7 most performant framework.
+> According to TechEmpower. 
+* It's used for desktop applications (Compose/Desktop)
+> It's GPU rendered by default, like a web browser or a video game. 
+* And also for web applications (via Kotlin/JS)
+> It can use the DOM directly, several JS libraries, even React and Redux.
+---
+
+# How does Multiplatform work?
 
 ## Essentially, it's a compiler with multiple backends
 
