@@ -353,9 +353,13 @@ fun App() {
 
 # Demo
 
+List, in real time, the list of databases and their sizes of a MongoDB cluster.
+
 ---
 
 # Demo
+
+List, in real time, the list of databases and their sizes of a MongoDB cluster.
 
 ## Desktop
 
@@ -366,6 +370,8 @@ fun App() {
 ---
 
 # Demo
+
+List, in real time, the list of databases and their sizes of a MongoDB cluster.
 
 ## Desktop
 
