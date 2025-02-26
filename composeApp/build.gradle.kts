@@ -57,6 +57,17 @@ compose.desktop {
     application {
         mainClass = "cat.kmruiz.MainKt"
 
+        application {
+            buildTypes.release.proguard {
+                version.set("7.6.1")
+                isEnabled = true
+                joinOutputJars = true
+                obfuscate = true
+                optimize = true
+                configurationFiles.from("proguard.pro")
+            }
+        }
+
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "cat.kmruiz"

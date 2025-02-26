@@ -228,4 +228,46 @@ And then the application (it will open a browser):
 
 ---
 
+# Distributing
+
+## Desktop
+
+* Support for Msi/Deb/Dmg
+* Minifies and obfuscates using Proguard
+
+```shell
+./gradlew composeApp:createReleaseDistributable
+```
+
+> ℹ️ This app is 123MB.
+
+## WASM
+
+* Minifies using webpack
+* You can decide what ES version to target
+* Requires WebGL to work
+
+```shell
+./gradlew composeApp:wasmJsBrowserProductionWebpack
+```
+
+> ℹ️ This app is 12MB.
+
+---
+
+# Wait, did you just say WebGL?
+
+Compose WASM uses WebGL, you can use Kotlin/JS and React, it's an option.
+
+## Sadly, Kotlin/JS is not "Compose"
+
+So you can't reuse components in Kotlin/JS.
+
+### The DOM model is compatible with Compose though
+
+So maybe someone at some point builds a Compose/DOM version
+that doesn't depend on WebGL.
+
+---
+
 # Q&A
