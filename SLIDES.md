@@ -17,6 +17,8 @@
 [ Kotlin ] - to -> [ IR ] - to -> [ Your backend ]
 ~~~
 ```
+> **IR** stands for _Intermediate Representation_ and is usually a simplified version of the source code.
+> It's used for dead code elimination _(tree shaking)_, optimisation and actual output generation. 
 
 ## This IR approach is common in any compiler that targets multiple platforms
 
@@ -24,7 +26,7 @@
 * gcc
 * rustc
 
-### Contain their own IR where the apply optimisations and transform your code
+### They contain their own IR where the apply optimisations and transform your code
 
 ---
 
@@ -35,11 +37,17 @@
 ```
 ~~~graph-easy --as=boxart
 [ Kotlin ] - is transformed to -> [ IR ]
-[ IR ] -> [ Kotlin for WASM ] -> [ Browser ]
-[ IR ] -> [ Kotlin for Java ] -> [ Desktop ]
-[ IR ] -> [ Kotlin Native ] -> [ Windows / Linux / OSX ]
+[ IR ] - used by -> [ Kotlin/WASM ] - bundled for -> [ Browser ]
+[ IR ] - used by -> [ Kotlin/Java ] - bundled for -> [ Desktop ]
+[ IR ] - used by -> [ Kotlin/Native ] - uses -> [ LLVM ]
+[ LLVM ] - compiles to -> [ macOS ] 
+[ LLVM ] - compiles to -> [ iOS / tvOS / watchOS ] 
+[ LLVM ] - compiles to -> [ Linux ] 
+[ LLVM ] - compiles to -> [ Windows ] 
+[ LLVM ] - compiles to -> [ Android NDK ] 
 ~~~
 ```
+> Fun fact: LLVM is the backend for Rust and Swift
 
 ## It does this job during compile-time
 But you can also depend on runtime libraries.
@@ -71,7 +79,7 @@ It's a subset of Kotlin that only allows to use:
 
 ---
 
-# How do we dynamically link this stuff?
+# How do we use platform specific code then?
 
 Two words: **expect** and **actual**.
 
@@ -93,13 +101,13 @@ actual fun randomId() = "" + (+Date())
 
 ---
 
-# How do we dynamically link this stuff?
+# How do we use platform specific code then?
 
 ```
 ~~~graph-easy --as=boxart
-[ commonMain ]
-[ commonMain ] -> [ desktopMain ]
-[ commonMain ] -> [ wasmJsMain ]
+[ commonMain ] -> (expect)
+[ commonMain ] - actual -> [ desktopMain ]
+[ commonMain ] - actual -> [ wasmJsMain ]
 ~~~
 ```
 
@@ -107,7 +115,7 @@ actual fun randomId() = "" + (+Date())
 * desktopMain contains the `actual` _java_ version
 * wasmJsMain contains the `actual` _wasm_ version
 
-## You can use any platform library in the implementations!
+## You can use any platform library in the implementation code!
 
 ---
 
@@ -134,6 +142,61 @@ WebGL based rendering.
 ## Native
 
 Nothing official, but there are libraries for TUIs like mosaic.
+
+---
+
+# Wait, did you just say WebGL?
+
+Compose WASM uses WebGL because it's faster than working with the DOM
+for applications with enough complexity.
+
+## Compose Multiplatform Relative Benchmark Times _(lower is better)_
+```
+~~~python3
+import plotext as plt
+
+benchmarks = ["AnimatedVisibility", "LazyGrid", "VisualEffects"]
+jvm = [100, 100, 100]
+wasm = [150, 180, 155]
+js = [320, 398, 310]
+
+plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
+plt.show()
+~~~
+```
+[Reference: Kotlin/Wasm performance](https://kotlinlang.org/docs/wasm-overview.html#kotlin-wasm-performance)
+
+---
+
+# Wait, did you just say WebGL?
+
+Compose WASM uses WebGL because it's faster than working with the DOM
+for applications with enough complexity.
+
+## Compose Multiplatform Relative Benchmark Times _(lower is better)_
+```
+~~~python3
+import plotext as plt
+
+benchmarks = ["AnimatedVisibility", "LazyGrid", "VisualEffects"]
+jvm = [100, 100, 100]
+wasm = [150, 180, 155]
+js = [320, 398, 310]
+
+plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
+plt.show()
+~~~
+```
+[Reference: Kotlin/Wasm performance](https://kotlinlang.org/docs/wasm-overview.html#kotlin-wasm-performance)
+
+## You can use Kotlin/JS with React but it's not "Compose"
+
+* So you can't reuse components across platforms.
+* But the final package is smaller
+
+### The DOM model is fairly similar to Compose though
+
+* So maybe someone at some point builds a Compose/DOM version that doesn't depend on WebGL.
 
 ---
 
@@ -271,61 +334,6 @@ And then the application (it will open a browser):
 ```
 
 > 📦 12MB w/o compression, 3.5MB gzipped.
-
----
-
-# Wait, did you just say WebGL?
-
-Compose WASM uses WebGL because it's faster than working with the DOM
-for applications with enough complexity.
-
-## Compose Multiplatform Relative Benchmark Times _(lower is better)_
-```
-~~~python3
-import plotext as plt
-
-benchmarks = ["AnimatedVisibility", "LazyGrid", "VisualEffects"]
-jvm = [100, 100, 100]
-wasm = [150, 180, 155]
-js = [320, 398, 310]
-
-plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
-plt.show()
-~~~
-```
-[Reference: Kotlin/Wasm performance](https://kotlinlang.org/docs/wasm-overview.html#kotlin-wasm-performance)
-
----
-
-# Wait, did you just say WebGL?
-
-Compose WASM uses WebGL because it's faster than working with the DOM
-for applications with enough complexity.
-
-## Compose Multiplatform Relative Benchmark Times _(lower is better)_
-```
-~~~python3
-import plotext as plt
-
-benchmarks = ["AnimatedVisibility", "LazyGrid", "VisualEffects"]
-jvm = [100, 100, 100]
-wasm = [150, 180, 155]
-js = [320, 398, 310]
-
-plt.simple_multiple_bar(benchmarks, [jvm, wasm, js], labels = ["JVM", "WASM", "JS"])
-plt.show()
-~~~
-```
-[Reference: Kotlin/Wasm performance](https://kotlinlang.org/docs/wasm-overview.html#kotlin-wasm-performance)
-
-## You can use Kotlin/JS with React but is not "Compose"
-
-* So you can't reuse components across platforms.
-* But the final package is smaller
-
-### The DOM model is fairly similar to Compose though
-
-* So maybe someone at some point builds a Compose/DOM version that doesn't depend on WebGL.
 
 ---
 
